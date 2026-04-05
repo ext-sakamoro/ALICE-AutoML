@@ -773,9 +773,9 @@ impl GridSearch {
     ) -> TrialTracker {
         let mut tracker = TrialTracker::new();
         for (i, params) in self.candidates().into_iter().enumerate() {
-            let mut trial = Trial::new(i, params.clone());
-            trial.status = TrialStatus::Running;
             let metric = objective(&params);
+            let mut trial = Trial::new(i, params);
+            trial.status = TrialStatus::Running;
             trial.complete(metric);
             tracker.add_trial(trial);
         }
@@ -819,9 +819,9 @@ impl RandomSearch {
     ) -> TrialTracker {
         let mut tracker = TrialTracker::new();
         for (i, params) in self.candidates().into_iter().enumerate() {
-            let mut trial = Trial::new(i, params.clone());
-            trial.status = TrialStatus::Running;
             let metric = objective(&params);
+            let mut trial = Trial::new(i, params);
+            trial.status = TrialStatus::Running;
             trial.complete(metric);
             tracker.add_trial(trial);
         }
@@ -909,9 +909,9 @@ impl BayesianOptimizer {
             for ps in self.space.params() {
                 params.insert(ps.name().to_string(), ps.sample(&mut rng));
             }
-            let mut trial = Trial::new(i, params.clone());
-            trial.status = TrialStatus::Running;
             let metric = objective(&params);
+            let mut trial = Trial::new(i, params);
+            trial.status = TrialStatus::Running;
             trial.complete(metric);
             tracker.add_trial(trial);
         }
@@ -951,9 +951,9 @@ impl BayesianOptimizer {
                 }
             }
 
-            let mut trial = Trial::new(i, best_params.clone());
-            trial.status = TrialStatus::Running;
             let metric = objective(&best_params);
+            let mut trial = Trial::new(i, best_params);
+            trial.status = TrialStatus::Running;
             trial.complete(metric);
             tracker.add_trial(trial);
         }
